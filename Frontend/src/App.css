@@ -1,0 +1,37 @@
+*{
+    color: #ececec;
+    font-family: Roboto, 'Open Sans', 'Helvetica Neue', 'sans-serif';
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.app{
+    background-color: black;
+    display: flex;
+}
+
+.customScrollbar {
+    overflow-y: auto;
+
+    scrollbar-color: #444 transparent;
+}
+
+.customScrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 999px;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
