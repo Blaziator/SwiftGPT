@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import "./Sidebar.css";
+import swiftLogo from "../assets/swiftgpt_logo_four_petal_pinwheel.png"
 import { FaPenToSquare } from "react-icons/fa6";
 import { MyContext } from "../Context/MyContext";
 import { v1 as uuidv1 } from "uuid";
@@ -86,7 +87,7 @@ export default function Sidebar() {
   return (
     <section className="sidebar">
       <button onClick={createNewChat}>
-        <img src="src/assets/swiftgpt_logo_four_petal_pinwheel.png" alt="GPT Logo" />
+        <img src={swiftLogo} alt="GPT Logo" />
         <FaPenToSquare size={17} />
       </button>
 
