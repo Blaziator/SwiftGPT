@@ -1,6 +1,8 @@
 .chatWindow{
     height: 100vh;
     width: 100%;
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -160,4 +162,16 @@ textarea::placeholder {
     background: rgba(255, 0, 0, 0.63);
     border-radius: 8px;
     padding: 10px;
+}
+
+.mobileMenuBtn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobileMenuBtn {
+        display: flex;
+        border: none;
+        background: transparent;
+    }
 }

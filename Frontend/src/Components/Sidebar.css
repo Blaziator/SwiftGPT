@@ -267,3 +267,40 @@ img{
     background-color: #222222;
     margin: 0;
 }
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        background: black;
+        height: 100vh;
+    }
+
+    .sidebar.closed {
+        transform: translateX(-100%);
+        width: 300px;
+    }
+
+    .sidebar {
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+}
+
+@media (max-width:768px){
+
+    .sidebar{
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        height: 100vh;
+    }
+
+    .sidebar.closed{
+        transform: translateX(-100%);
+        width: 300px;
+    }
+}

@@ -46,3 +46,19 @@ pre{
     padding: 1rem;
     overflow-x: auto;
 }
+
+@media (max-width: 768px) {
+    .chats {
+        padding: 1rem;
+    }
+
+    .userMessage {
+        margin-left: 3rem;
+        max-width: 80%;
+    }
+
+    .inputBox {
+        width: calc(100% - 20px);
+        margin: 0 10px;
+    }
+}

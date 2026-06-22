@@ -60,6 +60,10 @@ export default function Sidebar() {
     setReply(null);
     setCurrThreadId(uuidv1());
     setPrevChats([]);
+
+    if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+    }
   };
 
   const changeThread = async (newThreadId) => {
@@ -141,7 +145,9 @@ export default function Sidebar() {
         <span>New Chat</span>
       </button>
 
-      <div className="historyHeading">Recent Chats</div>
+      {allThreads?.length > 0 && (
+        <div className="historyHeading">Recent Chats</div>
+      )}
       <ul className="history customScrollbar">
         {allThreads?.map((thread, idx) => (
           <li

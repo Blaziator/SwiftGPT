@@ -7,6 +7,7 @@ import { MyContext } from "../Context/MyContext.jsx";
 import { useContext, useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
 import { AuthContext } from "../Context/AuthContext.jsx";
+import { HiMenu } from "react-icons/hi";
 
 export default function ChatWindow() {
   const {
@@ -18,6 +19,7 @@ export default function ChatWindow() {
     prevChats,
     setPrevChats,
     setNewChat,
+    setIsSidebarOpen 
   } = useContext(MyContext);
   const {currentUser, logout} = useContext(AuthContext)
   const [loading, setLoading] = useState(false);
@@ -87,6 +89,12 @@ export default function ChatWindow() {
   return (
     <div className="chatWindow">
       <div className="navbar">
+        <button
+          className="mobileMenuBtn"
+          onClick={() => setIsSidebarOpen(true)}
+        >
+          <HiMenu size={22} />
+        </button>
         <button className="model">
           SwiftGPT <HiChevronDown size={20} />
         </button>

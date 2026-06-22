@@ -3,7 +3,7 @@ import ChatWindow from './Components/ChatWindow.jsx';
 import Sidebar from './Components/Sidebar.jsx';
 import { MyContext } from './Context/MyContext.jsx';
 import AuthProvider from './Context/AuthProvider.jsx';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {v1 as uuidv1} from "uuid";
 import { AuthContext } from './Context/AuthContext.jsx';
 import AuthForm from './Components/AuthForm.jsx';
@@ -18,7 +18,7 @@ function AppContent() {
   const [prevChats, setPrevChats] = useState([]);
   const [newChat, setNewChat] = useState(true);
   const [allThreads, setAllThreads] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth > 768);
 
   const providerValues = {
     prompt, setPrompt,
@@ -29,6 +29,22 @@ function AppContent() {
     allThreads, setAllThreads,
     isSidebarOpen, setIsSidebarOpen
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   if (authLoading) {
     return <div className="app authLoadingScreen">
