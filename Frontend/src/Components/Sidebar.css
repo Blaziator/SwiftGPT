@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: space-between;
     border-right: solid 1px rgba(50, 50, 50, 0.5);
+    transition: width 0.25s ease;
 }
 
 button{
@@ -43,9 +44,13 @@ img{
     cursor: pointer;
     padding: 2px 5px;
     margin-bottom: 0.3rem;
-    font-size: 15px;
     border: solid 10px transparent;
     position: relative;
+    height: 34px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
 }
 
 .history li:hover{
@@ -61,12 +66,12 @@ img{
     border-top: solid 0.25px rgba(255, 255, 255, 0.5);
     flex-shrink: 0;
 }
-
+/* 
 .history li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+} */
 
 .trashIcon{
     opacity: 0;
@@ -95,6 +100,7 @@ img{
     black 80%,
     transparent 100%
     );
+    padding-left: 10px;
 }
 
 .highlighted{
@@ -161,4 +167,103 @@ img{
     border: 1px solid rgba(255,255,255,0.08);
     width: 90%;
     max-width: 420px;
+}
+
+.topSection{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 25px;
+}
+
+.brand span{
+    font-size: 17px;
+    font-weight: 600;
+    color: #ececec;
+}
+
+.menuBtn{
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+
+    background: #1a1a1a;
+}
+
+.newChatBtn{
+    margin: 0 12px;
+    height: 40px;
+
+    justify-content: flex-start;
+    gap: 10px;
+
+    background: #171717;
+    border: 1px solid rgba(255,255,255,0.08);
+
+    color: #ececec;
+}
+
+.historyHeading{
+    padding: 0 16px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    font-weight: 600;
+    color: #8a8a8a;
+    text-transform: uppercase;
+}
+
+.sidebar.closed{
+    width: 70px;
+}
+
+.sidebar.closed .threadTitle,
+.sidebar.closed .loginHeading,
+.sidebar.closed .loginMsg,
+.sidebar.closed .brand ,
+.sidebar.closed .newChatBtn span,
+.sidebar.closed .historyHeading
+{
+    display: none;
+}
+
+.logoutIcon{
+    cursor: pointer;
+    border: solid 1px rgba(255, 255, 255, 0.2);
+    justify-content: center;
+    background-color: #222222;
+    margin: 0;
+}
+
+.logoutIcon:hover{
+    background-color: rgba(255, 0, 0, 0.63);
+}
+
+.sidebar.closed .history li{
+    padding: 0;
+}
+
+.loginIcon{
+    cursor: pointer;
+    border: solid 1px rgba(255, 255, 255, 0.2);
+    justify-content: center;
+    align-items: center;
+    background-color: #222222;
+    margin: 0;
 }

@@ -7,7 +7,7 @@ import { useState, useContext } from 'react';
 import {v1 as uuidv1} from "uuid";
 import { AuthContext } from './Context/AuthContext.jsx';
 import AuthForm from './Components/AuthForm.jsx';
-import { SyncLoader } from "react-spinners";
+import { DotLoader } from "react-spinners";
 
 function AppContent() {
   const { currentUser, authLoading } = useContext(AuthContext);
@@ -18,6 +18,7 @@ function AppContent() {
   const [prevChats, setPrevChats] = useState([]);
   const [newChat, setNewChat] = useState(true);
   const [allThreads, setAllThreads] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const providerValues = {
     prompt, setPrompt,
@@ -25,12 +26,13 @@ function AppContent() {
     currThreadId, setCurrThreadId,
     newChat, setNewChat,
     prevChats, setPrevChats,
-    allThreads, setAllThreads
+    allThreads, setAllThreads,
+    isSidebarOpen, setIsSidebarOpen
   };
 
   if (authLoading) {
     return <div className="app authLoadingScreen">
-      <SyncLoader color="#fff" speedMultiplier={0.5} size={10} />
+      <DotLoader color="#fff" size={100} />
     </div>;
   }
 

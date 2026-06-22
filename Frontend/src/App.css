@@ -11,6 +11,9 @@ body{
 .app{
     background-color: black;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .customScrollbar {
@@ -35,4 +38,3 @@ body{
 .customScrollbar::-webkit-scrollbar-thumb:hover {
     background: #666;
 }
-

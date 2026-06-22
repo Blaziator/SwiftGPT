@@ -61,10 +61,6 @@ router.post("/chat", attachUserIfPresent, async(req, res)=>{
         return res.status(400).json({error: "Missing required fields."});
     }
 
-    if(!threadId || !message){
-        return res.status(400).json({error: "Missing required fields."});
-    }
-
     try{
         if (!req.userId) {
             const conversationHistory = [{ role: "user", content: message }];
