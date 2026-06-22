@@ -6,6 +6,7 @@ import { IoArrowUp } from "react-icons/io5";
 import { MyContext } from "../Context/MyContext.jsx";
 import { useContext, useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
+import { AuthContext } from "../Context/AuthContext.jsx";
 
 export default function ChatWindow() {
   const {
@@ -18,7 +19,9 @@ export default function ChatWindow() {
     setPrevChats,
     setNewChat,
   } = useContext(MyContext);
+  const {currentUser, logout} = useContext(AuthContext)
   const [loading, setLoading] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const getReply = async () => {
     if (!prompt.trim()) return;
@@ -29,6 +32,7 @@ export default function ChatWindow() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         message: prompt,
         threadId: currThreadId,
@@ -64,6 +68,22 @@ export default function ChatWindow() {
     setPrompt("");
   }, [reply]);
 
+  useEffect(() => {
+    if (!showDropdown) return;
+
+    const handleClickOutside = (e) => {
+        if (!e.target.closest(".userIconDiv")) {
+            setShowDropdown(false);
+        }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+        document.removeEventListener("click", handleClickOutside);
+    };
+}, [showDropdown]);
+
   return (
     <div className="chatWindow">
       <div className="navbar">
@@ -71,7 +91,28 @@ export default function ChatWindow() {
           SwiftGPT <HiChevronDown size={20} />
         </button>
         <div className="userIconDiv">
-          <MdAccountCircle size={28} />
+          {currentUser ? (
+            <>
+            <div className="userAvatar" onClick={() => setShowDropdown(!showDropdown)}>{currentUser.name.charAt(0).toUpperCase()}</div>        
+            {showDropdown && (
+              <div className="userDropdown">
+                <div className="dropdownUser">
+                  <p className="dropdownName">{currentUser.name}</p>
+                  <p className="dropdownEmail">{currentUser.email}</p>
+                </div>
+
+              <button
+                className="logoutBtn"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
+            )}
+            </>
+          ) :(<></>)
+            
+          }
         </div>
       </div>
 
@@ -90,7 +131,6 @@ export default function ChatWindow() {
             value={prompt}
             onChange={(e) => {
               setPrompt(e.target.value);
-
               e.target.style.height = "auto";
               e.target.style.height = e.target.scrollHeight + "px";
             }}

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState} from "react";
 import "./Sidebar.css";
 import swiftLogo from "../assets/swiftgpt_logo_four_petal_pinwheel.png"
 import { FaPenToSquare } from "react-icons/fa6";
@@ -6,6 +6,8 @@ import { MyContext } from "../Context/MyContext";
 import { v1 as uuidv1 } from "uuid";
 import { FaTrash } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
+import { AuthContext } from "../Context/AuthContext";
+import AuthForm from "./AuthForm";  
 
 export default function Sidebar() {
   const {
@@ -20,11 +22,14 @@ export default function Sidebar() {
     setPrevChats,
   } = useContext(MyContext);
 
+  const { currentUser, logout } = useContext(AuthContext);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const getAllThreads = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/thread`);
+      const response = await fetch(`${apiUrl}/api/thread`, {credentials: "include"});
       const res = await response.json();
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
@@ -37,8 +42,10 @@ export default function Sidebar() {
   };
 
   useEffect(() => {
-    getAllThreads();
-  }, [reply]);
+    if(currentUser){
+        getAllThreads();
+    }
+  }, [currentUser, reply]);
 
   const createNewChat = () => {
     setNewChat(true);
@@ -53,7 +60,7 @@ export default function Sidebar() {
     setPrompt("");
     try {
       const response = await fetch(
-        `${apiUrl}/api/thread/${newThreadId}`,
+        `${apiUrl}/api/thread/${newThreadId}`, {credentials: "include"}
       );
       const res = await response.json();
       setPrevChats(res);
@@ -66,7 +73,7 @@ export default function Sidebar() {
 
   const deleteThread = async(threadId)=>{
     try{
-        const response = await fetch(`${apiUrl}/api/thread/${threadId}`, {method: "DELETE"});
+        const response = await fetch(`${apiUrl}/api/thread/${threadId}`, {method: "DELETE", credentials: "include"});
 
         if(!response.ok){
           console.log("Failed to delete thread.")
@@ -82,6 +89,16 @@ export default function Sidebar() {
     }catch(err){
         console.log(err);
     }
+  }
+
+  const handleLogout = async()=>{
+    await logout();
+
+    setAllThreads([]);
+    setPrevChats([]);
+    setReply(null);
+    setPrompt("");
+    setNewChat(true);
   }
 
   return (
@@ -103,8 +120,29 @@ export default function Sidebar() {
         ))}
       </ul>
       <div className="sign">
-        <p>Made with love &hearts;</p>
+        {currentUser ? (
+            <button className="logoutBtn" onClick={handleLogout}>
+              Log out
+            </button>
+        ) : (
+          <>
+          <p className="loginHeading">Continue where you left off</p>
+          <p className="loginMsg">Log in to view your saved chats and receive answers tailored to your chat history.</p>
+          <button className="loginBtn" onClick={() => setShowAuthModal(true)}>
+            Log in
+          </button>
+          </>
+        )}
       </div>
+
+      {showAuthModal && (
+        <div className="authModalBackdrop" onClick={() => setShowAuthModal(false)}>
+          <div className="authModalContent" onClick={(e) => e.stopPropagation()}>
+            <AuthForm onSuccess={() => setShowAuthModal(false)} />
+          </div>
+        </div>
+      )}  
+
     </section>
   );
 }

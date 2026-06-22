@@ -1,0 +1,78 @@
+.authWrapper{
+    height: 85vh;
+    width: 95%;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1f1f1f;
+}
+
+.authForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 360px;
+    padding: 2rem;
+    gap: 1rem;
+}
+
+.authForm h1{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 15rem;
+}
+
+.authForm input{
+    background-color: #212121;
+    border: solid 1px rgba(255,255,255, 0.08);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    color: #ececec;
+}
+
+.authForm input:focus{
+    outline: none;
+    border-color: #555;
+}
+
+.authForm button{
+    background-color: #ececec;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;   
+}
+
+.authForm button:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.authError{
+    color: #f5547a;
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 0;
+}
+
+.authToggle{
+    text-align: center;
+    font-size: 0.9rem;
+    color: #b4b4b4;
+    margin: 0;
+}
+
+.authToggle span{
+    color: #ececec;
+    cursor: pointer;
+    text-decoration: underline;
+}

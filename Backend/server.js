@@ -3,16 +3,21 @@ import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
 import router from "./routes/chat.js";
+import authRouter from "./routes/auth.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173"
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  credentials: true
 }));
 
 app.use("/api", router);
+app.use("/api/auth", authRouter);
 
 const connectDB = async()=>{
   try{
